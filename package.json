@@ -1,0 +1,27 @@
+{
+  "name": "Note-Taker",
+  "version": "1.0.0",
+  "description": "Node And Express Server Homework",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Houssnou/Note-Taker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Houssnou/Note-Taker/issues"
+  },
+  "homepage": "https://github.com/Houssnou/Note-Taker#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "moment": "^2.24.0",
+    "mysql": "^2.16.0",
+    "path": "^0.12.7"
+  }
+}
