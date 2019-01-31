@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+  <link rel="stylesheet" href="style.css">
+  <title>Home|Note Taker</title>
+</head>
+
+<body>
+  <!-- nav bar  -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="./">Note Taker <span class="sr-only">(current)</span></a>
+        </li>
+
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="coming soon" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
+      </form>
+    </div>
+  </nav>
+  <!-- end nav bar -->
+  <!-- jumbotron for the accordion-->
+  <div class="container my-4">
+    <!-- New Note Form -->
+    <div class="card mb-4 border-dark">
+      <div class="card-header bg-dark text-light">
+        What do you have in mind
+      </div>
+      <div class="card-body border-dark">
+        <form role="form">
+          <div class="form-group">
+            <input type="text" class="form-control" id="title-input" placeholder="Note Title">
+          </div>
+
+          <div class="form-group">
+            <textarea class="form-control" id="content-input" rows="2" placeholder="Save what your mind"></textarea>
+          </div>
+          <div class="form-group text-right">
+            <button class="btn btn-outline-primary btn-sm" id="add-note" type="submit">Save</button>
+            <button class="btn btn-outline-secondary btn-sm" id="reset-note" type="reset">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Accordion -->
+    <div class="accordion" id="accordion">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0">
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#note1" aria-expanded="true"
+              aria-controls="note1">
+              Note 1
+            </button>
+            | Created: xxxx-xx-xx 00:00:00 Last modification: xxxx-xx-xx 00:00:00
+            <i class="fas fa-edit"></i>
+            <i class="fas fa-trash-alt"></i>
+          </h5>
+        </div>
+
+        <div id="note1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
+            officia aute, non cupidatat skateboard dolor brunch. 
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingTwo">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#note2"
+              aria-expanded="false" aria-controls="collapseTwo">
+              Note 2
+            </button>
+            | Created: xxxx-xx-xx 00:00:00 Last modification: xxxx-xx-xx 00:00:00
+            <i class="fas fa-edit"></i>
+            <i class="fas fa-trash-alt"></i>
+          </h5>
+        </div>
+        <div id="note2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
+            officia aute, non cupidatat skateboard dolor brunch. 
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingThree">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#note3"
+              aria-expanded="false" aria-controls="collapseThree">
+              Note 3
+            </button>
+            | Created: xxxx-xx-xx 00:00:00 Last modification: xxxx-xx-xx 00:00:00
+            <i class="fas fa-edit"></i>
+            <i class="fas fa-trash-alt"></i>
+          </h5>
+        </div>
+        <div id="note3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
+            officia aute, non cupidatat skateboard dolor brunch.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- end jumbotron -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</body>
+
+</html>
