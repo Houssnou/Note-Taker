@@ -54,17 +54,23 @@
 
     <!-- Accordion -->
     <div class="accordion" id="accordion">
-      <!-- <div class="card">
-        <div class="card-header" id="headingOne">
-          <h5 class="mb-0">
+      <!--  <div class="card">
+        <div class="card-header " id="headingOne">
+            <div class="row align-items-center">
+            <div class="col-2 d-flex align-content-start">
             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#note1" aria-expanded="true"
-              aria-controls="note1">
+              aria-controls="note1" style="color: black; font-weight: bold; text-decoration: none">
               Note 1
             </button>
-            | Created: xxxx-xx-xx 00:00:00 Last modification: xxxx-xx-xx 00:00:00
+          </div>
+          <div class="col-8 d-flex align-content-start">
+            Created: xxxx-xx-xx 00:00:00 Last modification: xxxx-xx-xx 00:00:00
+          </div>
+          <div class="col-2 d-flex justify-content-end">
             <i class="fas fa-edit"></i>
             <i class="fas fa-trash-alt"></i>
-          </h5>
+          </div>
+        </div>
         </div>
 
         <div id="note1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
@@ -73,7 +79,7 @@
             officia aute, non cupidatat skateboard dolor brunch. 
           </div>
         </div>
-      </div> -->
+      </div>  -->
 
 
     </div>
@@ -112,9 +118,15 @@
 
           //the header
           const $cardheader = $(`<div class='card-header text-align' id='heading${index+1}'>`);
+          //div row to wrap the line : title dates actions
+          //inside the header we will have a row with 3colums 2-8-2
+          const $row = $("<div class='row align-items-center'>");
+          const $colTitle = $("<div class='col-2 d-flex align-content-start'>");
+          const $colDates = $("<div class='col-8 d-flex align-content-start'>");
+          const $colActions = $("<div class='col-2 d-flex justify-content-end'>");
 
-          //h5 tag to wrap the title and the other data
-          //const $h5=$("<h5 class='mb-0'>").appendTo($cardheader);
+
+
           //inline style to be removed later #collapse-link {color: black; font-weight: bold; text-decoration: none;
           //button to make the title clikable
           const $buttonTitle = $(
@@ -122,17 +134,18 @@
                               data-toggle='collapse' data-target='#note${index+1}'
                               aria-expanded='false' aria-controls='note${index+1}'
                               style='color: black; font-weight: bold; text-decoration: none'>`
-          ).text(note.title);
+          ).text(note.title).appendTo($colTitle);
 
           //build the line //build the line: Note 1 created: modified edit and suppress icon 
           const $spanCreated = $("<span>").text(
-            `Created :${moment(note.date_creation).format("YYYY-MM-DD h:mm:ss a")} `);
+            `Created :${moment(note.date_creation).format("YYYY-MM-DD H:MM:SS a")} `).appendTo($colDates);
           const $spanModified = $("<span>").text(
-            `- Last Access: ${moment(note.last_modification).format("YYYY-MM-DD h:mm:ss a")}`);
+            `- Last Access :${moment(note.last_modification).format("YYYY-MM-DD H:MM:SS a")}`).appendTo(
+            $colDates);
 
           //$("<i class='fas fa-edit'>")
-          const $update = $("<i class='fas fa-edit text-warning'>");
-          const $delete = $("<button class='fas fa-trash-alt text-danger'>");
+          const $update = $("<i class='fas fa-edit text-warning'>").appendTo($colActions);
+          const $delete = $("<button class='fas fa-trash-alt text-danger'>").appendTo($colActions);
 
           //link the data to the button to be able to use it on click on the button
           $update
@@ -149,9 +162,10 @@
           $update.data("data-note", note);
           $delete.data("data-note", note);
 
-          //append them to the h5 tag
-          $cardheader.append($buttonTitle, $spanCreated, $spanModified, $update, $delete);
-          // $cardheader.text(note.title);
+          //append them to the 
+          //$cardheader.append($buttonTitle, $spanCreated, $spanModified, $update, $delete);
+          $row.append($colTitle,$colDates,$colActions);
+          $cardheader.append($row);
 
           //the body
           const $divCollapse = $(
@@ -192,6 +206,42 @@
         //then clear form inputs
         $("#title-input").val("");
         $("#content-input").val("");
+        //reload the page
+        location.reload();
+      });
+    });
+
+    //listener for a click on action icon update
+    $(document).on("click", "#update", function () {
+      //get the values back from the data ()
+      const updateNote= $(this).data("data-note");
+
+      console.log(updateNote);
+
+      //repopulate the form inputs.
+      $("#title-input").val(updateNote.title);
+      $("#content-input").val(updateNote.content);
+
+    });
+
+    //listener for a click on action icon delete
+    $(document).on("click", "#delete", function () {
+      //get the values back from the data ()
+      const deleteNote= $(this).data("data-note");
+
+      console.log(deleteNote);
+
+      //call ajax /api/delete
+      $.ajax({
+        url: "/api/delete",
+        method: "POST",
+        data: deleteNote
+      }).then(data => {
+
+        //inform the user
+        alert("Note Successfully deleted!");        
+        //reload the page
+        location.reload();
       });
     });
   </script>

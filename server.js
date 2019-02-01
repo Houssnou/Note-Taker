@@ -40,6 +40,17 @@ app.post("/api/notes", (req, res)=> {
   });
 });
 
+//delete api
+app.post("/api/delete", (req, res)=> {
+  cnx.query("delete from notes where id = ?",req.body.id, (err, result)=> {
+    if (err) {
+      console.log("Delete Error: "+err);
+      res.status(400).json(err);
+    };  
+    res.json(result);
+  });
+});
+
 
 //caution this fires up the "server"
 app.listen(PORT, function () {
