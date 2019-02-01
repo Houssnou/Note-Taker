@@ -141,7 +141,7 @@ $(document).ready(function () {
         console.log(updateData);
         //do the ajax call 
         $.ajax({
-          url: "/api/update",
+          url: "/api/notes",
           method: "PUT",
           data: updateData
         }).then(data => {
@@ -169,8 +169,8 @@ $(document).ready(function () {
       $(document).on("click", "#confirm-delete", function (event) {
         //call ajax /api/delete
         $.ajax({
-          url: "/api/delete",
-          method: "POST",
+          url: "/api/notes",
+          method: "DELETE",
           data: deleteNote
         }).then(data => {
 
@@ -183,5 +183,5 @@ $(document).ready(function () {
       });
 
     });
-    
+
   });
