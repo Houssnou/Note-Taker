@@ -80,12 +80,69 @@
           </div>
         </div>
       </div>  -->
-
-
     </div>
-
   </div>
   <!-- end jumbotron -->
+  <!-- begin update modal -->
+  <div class="modal fade" id="update-modal" tabindex="-1" role="dialog" aria-labelledby="Update-modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="update-modal-title">Updating a note</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="update-modal-body">
+          <!-- modal body -->
+          <form role="form">
+            <div class="form-group">
+              <input type="text" class="form-control" id="title-modal" placeholder="Note Title">
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" id="content-modal" rows="2" placeholder="Save what your mind"></textarea>
+            </div>
+            <!-- <div class="form-group text-right">
+                    <button class="btn btn-outline-primary btn-sm" id="add-note" type="submit">Save</button>
+                    <button class="btn btn-outline-secondary btn-sm" id="reset-note" type="reset">Reset</button>
+                  </div> -->
+          </form>
+          <!-- end body -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-outline-primary" id="confirm-update" type="submit">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end update modal -->
+  <!-- begin delete modal -->
+  <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="Delete-modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="delete-modal-title">Delete a note</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="delete-modal-body">
+          <!-- modal body -->
+          <div class="alert alert-danger" role="alert">
+            <strong> Are you sure you want to permanently delete this note?</strong>
+          </div>
+
+          <!-- end body -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-outline-danger" id="confirm-delete">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end deltete modal -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
@@ -125,8 +182,6 @@
           const $colDates = $("<div class='col-8 d-flex align-content-start'>");
           const $colActions = $("<div class='col-2 d-flex justify-content-end'>");
 
-
-
           //inline style to be removed later #collapse-link {color: black; font-weight: bold; text-decoration: none;
           //button to make the title clikable
           const $buttonTitle = $(
@@ -138,14 +193,15 @@
 
           //build the line //build the line: Note 1 created: modified edit and suppress icon 
           const $spanCreated = $("<span>").text(
-            `Created :${moment(note.date_creation).format("YYYY-MM-DD H:MM:SS a")} `).appendTo($colDates);
+            `Created : ${moment(note.date_creation).format("YYYY-MM-DD HH:mm")} `).appendTo($colDates);
           const $spanModified = $("<span>").text(
-            `- Last Access :${moment(note.last_modification).format("YYYY-MM-DD H:MM:SS a")}`).appendTo(
+            `  - Last Access : ${moment(note.last_modification).format("YYYY-MM-DD HH:mm")}`).appendTo(
             $colDates);
 
           //$("<i class='fas fa-edit'>")
-          const $update = $("<i class='fas fa-edit text-warning'>").appendTo($colActions);
-          const $delete = $("<button class='fas fa-trash-alt text-danger'>").appendTo($colActions);
+          const $update = $("<span class='fas fa-edit text-warning'>").appendTo($colActions);
+
+          const $delete = $("<span class='fas fa-trash-alt text-danger'>").appendTo($colActions);
 
           //link the data to the button to be able to use it on click on the button
           $update
@@ -164,7 +220,7 @@
 
           //append them to the 
           //$cardheader.append($buttonTitle, $spanCreated, $spanModified, $update, $delete);
-          $row.append($colTitle,$colDates,$colActions);
+          $row.append($colTitle, $colDates, $colActions);
           $cardheader.append($row);
 
           //the body
@@ -191,8 +247,8 @@
       const newNote = {
         title: $("#title-input").val().trim(),
         content: $("#content-input").val().trim(),
-        date_creation: moment().format("YYYY-MM-DD HH:MM:SS"),
-        last_modification: moment().format("YYYY-MM-DD HH:MM:SS")
+        date_creation: moment().format("YYYY-MM-DD HH:mm:ss"),
+        last_modification: moment().format("YYYY-MM-DD HH:mm:ss")
       };
       console.log(newNote);
       //ajax call
@@ -214,35 +270,46 @@
     //listener for a click on action icon update
     $(document).on("click", "#update", function () {
       //get the values back from the data ()
-      const updateNote= $(this).data("data-note");
+      const updateNote = $(this).data("data-note");
 
       console.log(updateNote);
 
-      //repopulate the form inputs.
-      $("#title-input").val(updateNote.title);
-      $("#content-input").val(updateNote.content);
+      //send data to the modal
+      $("#title-modal").val(updateNote.title);
+      $("#content-modal").val(updateNote.content);
 
+      //confirm-update
+      $(document).on("click", "#confirm-update", function (event) {
+        alert("You made it!!!");
+        
+      });
     });
 
     //listener for a click on action icon delete
     $(document).on("click", "#delete", function () {
       //get the values back from the data ()
-      const deleteNote= $(this).data("data-note");
+      const deleteNote = $(this).data("data-note");
 
       console.log(deleteNote);
 
-      //call ajax /api/delete
-      $.ajax({
-        url: "/api/delete",
-        method: "POST",
-        data: deleteNote
-      }).then(data => {
+      //send the data to the modal
+      //confirm delete
+      $(document).on("click", "#confirm-delete", function (event) {
+        //call ajax /api/delete
+        $.ajax({
+          url: "/api/delete",
+          method: "POST",
+          data: deleteNote
+        }).then(data => {
 
-        //inform the user
-        alert("Note Successfully deleted!");        
-        //reload the page
-        location.reload();
+          //inform the user
+          alert("Note Successfully deleted!");
+          //reload the page
+          location.reload();
+        });
+
       });
+
     });
   </script>
 </body>
