@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const noteController = require("../../Controllers/notes");
+const noteController = require("../../controllers/notes");
 
 // methods for /api/tables (GET, POST,PUT and DELETE)
 router
