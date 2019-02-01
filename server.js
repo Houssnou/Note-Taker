@@ -17,10 +17,6 @@ app.use(express.urlencoded({
 app.use(express.json());
 app.use(express.static("public"));
 
-
-// make all front end html/css/js/images/etc available 
-app.use(express.static("public"));
-
 // caution this fires up the routes
 app.use(routes);
 
