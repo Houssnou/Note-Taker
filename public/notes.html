@@ -54,7 +54,7 @@
 
     <!-- Accordion -->
     <div class="accordion" id="accordion">
-      <div class="card">
+      <!-- <div class="card">
         <div class="card-header" id="headingOne">
           <h5 class="mb-0">
             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#note1" aria-expanded="true"
@@ -73,45 +73,9 @@
             officia aute, non cupidatat skateboard dolor brunch. 
           </div>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingTwo">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#note2"
-              aria-expanded="false" aria-controls="collapseTwo">
-              Note 2
-            </button>
-            | Created: xxxx-xx-xx 00:00:00 Last modification: xxxx-xx-xx 00:00:00
-            <i class="fas fa-edit"></i>
-            <i class="fas fa-trash-alt"></i>
-          </h5>
-        </div>
-        <div id="note2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-          <div class="card-body">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-            officia aute, non cupidatat skateboard dolor brunch. 
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingThree">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#note3"
-              aria-expanded="false" aria-controls="collapseThree">
-              Note 3
-            </button>
-            | Created: xxxx-xx-xx 00:00:00 Last modification: xxxx-xx-xx 00:00:00
-            <i class="fas fa-edit"></i>
-            <i class="fas fa-trash-alt"></i>
-          </h5>
-        </div>
-        <div id="note3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-          <div class="card-body">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-            officia aute, non cupidatat skateboard dolor brunch.
-          </div>
-        </div>
-      </div>
+      </div> -->
+      
+      
     </div>
 
   </div>
@@ -120,6 +84,65 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"></script>
 </body>
+<script type="text/javascript">
+// on load display all notes from db
+//build the content of our accordion 
+//ajax call 
+// call the API tables
+$.ajax({
+        url: "/api/notes",
+        method: "GET"
+      })
+      .then(function (notes) {
+        console.log(notes);
+        notes.forEach((note,index) => {
+        //accordion is just a card with header and body so lets have fun.
+        
+        //build the card
+        const $card=$("<card>");
+
+        //the header
+        const $cardheader=$(`<div class='card-header' id='heading${index+1}'>`);
+
+        //h5 tag to wrap the title and the other data
+        //const $h5=$("<h5 class='mb-0'>").appendTo($cardheader);
+        //inline style to be removed later #collapse-link {color: black; font-weight: bold; text-decoration: none;
+        //button to make the title clikable
+        const $buttonTitle=$(`<button class='btn btn-link' type='button' 
+                              data-toggle='collapse' data-target='#note${index+1}'
+                              aria-expanded='false' aria-controls='note${index+1}'
+                              style='color: black; font-weight: bold; text-decoration: none'>`).text(note.title);
+
+        //build the line //build the line: Note 1 created: modified edit and suppress icon 
+        const $spanCreated=$("<span>").text(`Created :${note.date_creation} `);
+        const $spanModified=$("<span>").text(`- Last Access: ${note.last_modification}`); 
+        const $update=$("<i class='fas fa-edit'>");
+        const $delete=$("<i class='fas fa-trash-alt'>");
+        //append them to the h5 tag
+        $cardheader.append($buttonTitle,$spanCreated,$spanModified,$update,$delete);        
+       // $cardheader.text(note.title);
+
+        //the body
+        //quik
+        const $divCollapse=$(`<div id='note${index+1}' aria-labelledby='heading${index+1}' data-parent='#accordion'>`);
+        //quick check to determine if it should be a class collapse show or not
+        
+        (index===0)? $divCollapse.addClass("collapse show"): $divCollapse.addClass("collapse"); 
+        
+        
+        const $cardBody=$("<div class='card-body'>");
+              $cardBody.text(note.content).appendTo($divCollapse);
+        
+        //build the card content
+        $card.append($cardheader, $divCollapse).appendTo("#accordion");
+
+
+          
+        });
+      });
+
+</script>
 
 </html>
