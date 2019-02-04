@@ -22,8 +22,6 @@ module.exports = {
 
   //update a note /:id
   updateNote: (req, res) => {
-    // console.log(req.body);
-    // console.log(req.params.id);
     //build the const to update data
     const paramData = {
       title: req.body.title,
@@ -59,11 +57,15 @@ module.exports = {
 
   //seachNote
   searchNote: (req, res) => { //req.body.title
-    connection.query("SELECT * FROM notes WHERE title = ? LIMIT 1", [req.params.title], function (err, dbNote) {
+    //building the search parameter
+    const search=`%${req.params.title}%`;
+    console.log(search);
+
+    cnx.query("SELECT * FROM notes WHERE title LIKE ?", [search], function (err, dbNotesFound) {
       if (err) throw err;
 
-      if (dbNote[0]) {
-        res.json(dbNote[0]);
+      if (dbNotesFound) {
+        res.json(dbNotesFound);
       } else {
         res.json(null);
       }

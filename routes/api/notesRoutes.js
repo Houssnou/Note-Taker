@@ -6,12 +6,16 @@ router
   .route("/")
   .get(noteController.getAllNotes)
   .post(noteController.addNote)
-  .delete(noteController.deleteNote)
-  .search(noteController.searchNote);
+  .delete(noteController.deleteNote);
 
   //methods for api/notes/:id (PUT)
 router
   .route("/:id")
   .put(noteController.updateNote);
+
+  //search method using get api/notes/:title
+  router
+  .route("/:title")
+  .get(noteController.searchNote);
 
 module.exports = router;

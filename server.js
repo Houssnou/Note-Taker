@@ -8,7 +8,7 @@ const routes = require("./routes");
 const app = express();
 
 // set up port
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
 //express stuff
 app.use(express.urlencoded({

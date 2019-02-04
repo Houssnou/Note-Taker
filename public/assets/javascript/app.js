@@ -184,4 +184,34 @@ $(document).ready(function () {
 
     });
 
+    //event listener for a click on search
+    $("#search").on("click", (event) => {
+      //avoid reload page
+      event.preventDefault();
+
+      //get the values back from the data ()
+      //get the input value
+      const searchValue=$("#search-input").val().trim();
+
+      console.log(searchValue);
+      console.log("----------");
+      console.log(`/api/notes/${searchValue}`)
+      $.ajax({
+        url: "/api/notes/"+searchValue,
+        method: "GET",
+        //data:
+      })
+      .then(function (notesFound) {
+        //console.log(`Search result: ${notesFound.length}`);
+        //console.log(notesFound);
+
+        alert(`${notesFound.length} note(s) found!`);
+        //clear the search input
+        $("#search-input").val("");
+
+        //reload the page
+        location.reload();
+      });
+    });
+
   });
