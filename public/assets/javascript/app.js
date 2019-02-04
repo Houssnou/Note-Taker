@@ -141,7 +141,7 @@ $(document).ready(function () {
         console.log(updateData);
         //do the ajax call 
         $.ajax({
-          url: "/api/notes",
+          url: "/api/notes/"+updateNote.id,
           method: "PUT",
           data: updateData
         }).then(data => {
