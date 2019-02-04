@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Houssnou/Note-Taker#readme",
   "dependencies": {
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
     "moment": "^2.24.0",

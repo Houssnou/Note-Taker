@@ -9,7 +9,7 @@ if (process.env.JAWSDB_URL) {
   cnx = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "@Watinoma00",
+    password: process.env.MYSQL_PASSWORD,
     database: "notes_db"
   });
 }
