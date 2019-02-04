@@ -41,11 +41,10 @@ $(document).ready(function () {
           ).text(note.title).appendTo($colTitle);
 
           //build the line //build the line: Note 1 created: modified edit and suppress icon 
-          const $spanCreated = $("<span>").text(
-            `Created : ${moment(note.date_creation).format("YYYY-MM-DD HH:mm")} `).appendTo($colDates);
-          const $spanModified = $("<span>").text(
-            `  - Last Access : ${moment(note.last_modification).format("YYYY-MM-DD HH:mm")}`).appendTo(
-            $colDates);
+          const $spanCreated = $("<span class='mr-2'>").text("Created :").appendTo($colDates);
+          const $spanCreatedContent = $("<span style='font-weight: bold'>").text(` ${moment(note.date_creation).format("ddd, MMM Do YYYY, h:mm a")}`).appendTo($colDates);
+          const $spanLastAccess = $("<span class='mx-2'>").text("Last access :").appendTo($colDates);
+          const $spanLastAccessContent = $("<span style='font-weight: bold'>").text(`  ${moment(note.last_modification).format("ddd, MMM Do YYYY, h:mm a")}`).appendTo($colDates);
 
           //$("<i class='fas fa-edit'>")
           const $update = $("<span class='fas fa-edit text-warning'>").appendTo($colActions);
