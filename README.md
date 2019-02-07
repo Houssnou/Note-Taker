@@ -7,6 +7,5 @@ Node And Express Server Homework
 3. Each note is an accordion elt allowing the user to click on the title to see the content. We are also displaying the creation and last accessed dates with buttons at the very end to let users update and delete their notes.
 
 ![Image 1](/HomeNoteTaker.png)
-![Image 2](/NoteTaker_1.png)
 ![Image 3](/NoteTaker_2.png)
 ![Image 4](/NoteTaker_3.png)
