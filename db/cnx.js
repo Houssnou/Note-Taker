@@ -1,4 +1,5 @@
 var mysql = require("mysql");
+require("dotenv");
 
 var cnx;
 
@@ -9,7 +10,7 @@ if (process.env.JAWSDB_URL) {
   cnx = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: process.env.MYSQL_PASSWORD,
+    password: "@Watinoma00",
     database: "notes_db"
   });
 }
